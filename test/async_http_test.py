@@ -26,16 +26,14 @@ class MyTestCase(unittest.TestCase):
                         break
                     for img_info in img_list:
                         preview_url = img_info.get('href')
-                        async with session.get(preview_url, ssl=False) as preview_resp:
-                            if preview_resp.status == 200:
-                                preview_page_soup = BeautifulSoup(await preview_resp.text(), 'html.parser')
-                                img_url = preview_page_soup.select('img#wallpaper')[0].get('src')
-                                print(img_url)
-                                try:
-                                    await download_data(session, img_url)
-                                except (BaseException, Exception):
-                                    pass
-                                await asyncio.sleep(2)
+                        preview_page_soup = BeautifulSoup(await fetch_req(session, preview_url), 'html.parser')
+                        img_url = preview_page_soup.select('img#wallpaper')[0].get('src')
+                        print(img_url)
+                        try:
+                            await download_data(session, img_url)
+                        except (BaseException, Exception):
+                            pass
+                        await asyncio.sleep(2)
 
                     current_page += 1
 
