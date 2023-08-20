@@ -1,1 +1,1 @@
-from crawlers.base import BaseCrawler
+from crawlers.base_crawler import BaseCrawler

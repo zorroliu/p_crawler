@@ -21,7 +21,7 @@ async def fetch_req(session, url: str = '', headers=None, max_retry: int = 3):
                     data = await resp.text(encoding='utf-8')
                 return data
         except (BaseException, Exception) as e:
-            http_log.log(f"【{url}】下载失败, 第{retry_count}次重试; Reason: {e}", LogLevel.ERROR)
+            http_log.log(f"【{url}】请求失败, 第{retry_count}次重试; Reason: {e}", LogLevel.ERROR)
             await asyncio.sleep(3)
 
 

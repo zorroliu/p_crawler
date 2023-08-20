@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import configparser
+import os
 
 
 class Config:
@@ -24,4 +25,14 @@ class Config:
             self._config.write(f)
 
 
-default_config: Config = Config('../config.ini')
+def get_project_root():
+    # 获取当前脚本的绝对路径
+    current_file = os.path.abspath(__file__)
+
+    # 假设项目根目录是当前脚本所在目录的父目录
+    project_root = os.path.dirname(os.path.dirname(current_file))
+
+    return project_root
+
+
+default_config: Config = Config(os.path.join(get_project_root(), 'config.ini'))

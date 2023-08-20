@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import pkgutil
-from crawlers.base import BaseCrawler
+from crawlers.base_crawler import BaseCrawler
 import inspect
 
 # load classes subclass of BaseCrawler
