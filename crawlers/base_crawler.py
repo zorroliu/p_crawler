@@ -15,7 +15,7 @@ class BaseCrawler:
         self._completed = False
 
     def _producer(self):
-        for _ in range(10000):
+        for _ in range(100):
             item = random.randint(1, 100)
             print(f"写入: {item}")
             self._buffer.put(item)
@@ -38,12 +38,22 @@ class BaseCrawler:
     def _process_data(item):
         print(f'读取: {item}')
 
+    def before(self):
+        pass
+
+    def after(self):
+        pass
+
     def start(self):
+        self.before()
         with ThreadPoolExecutor(max_workers=self._max_workers) as pool:
             pool.submit(self._producer)
             for _ in range(self._num_consumers):
                 pool.submit(self._consumer)
         self._buffer.join()
+
+    def __del__(self):
+        self.after()
 
 
 if __name__ == "__main__":
