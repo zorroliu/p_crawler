@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import os
+from io import open
 import shutil
 import subprocess
 from base.logger import CustLogger, LogLevel

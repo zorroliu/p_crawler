@@ -34,3 +34,15 @@ def get_ts_list_from_uri(m3u8_url, headers=None, verify_ssl=True):
         return
 
     return [segment.uri for segment in m3u8_obj.segments]
+
+
+def get_play_list(m3u8_url, headers=None, verify_ssl=True):
+    if headers is None:
+        headers = {}
+    m3u8_obj = m3u8.load(m3u8_url, headers=headers, verify_ssl=verify_ssl)
+
+    if m3u8_obj.is_variant:
+        return [play_info.uri for play_info in m3u8_obj.playlists]
+
+    print('This is not a variant playlist.')
+    return None

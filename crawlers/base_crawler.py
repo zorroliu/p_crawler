@@ -27,12 +27,17 @@ class BaseCrawler:
 
     def _consumer(self):
         while True:
-            with self._lock:
-                if self._completed and self._buffer.empty():
-                    break
-            item = self._buffer.get()
-            self._process_data(item)
-            self._buffer.task_done()
+            try:
+                with self._lock:
+                    if self._completed and self._buffer.empty():
+                        break
+
+                if not self._buffer.empty():
+                    item = self._buffer.get()
+                    self._process_data(item)
+                    self._buffer.task_done()
+            except (BaseException, Exception):
+                pass
 
     @staticmethod
     def _process_data(item):
@@ -51,8 +56,6 @@ class BaseCrawler:
             for _ in range(self._num_consumers):
                 pool.submit(self._consumer)
         self._buffer.join()
-
-    def __del__(self):
         self.after()
 
 
