@@ -112,7 +112,7 @@ def download_data(url, headers=None, ext_file_name: str = None, specified_file_p
         try:
             resp = requests.get(url, headers=headers, stream=True, verify=False)
             http_log.log(f'【{url}】请求成功; 返回状态码: {resp.status_code}; 文件地址: {file_path}')
-            if resp.status_code == 200:
+            if resp.status_code == 200 or resp.status_code == 206:
                 with open(file_path, 'wb') as f:
                     for content in resp.iter_content(chunk_size=1024):
                         f.write(content)

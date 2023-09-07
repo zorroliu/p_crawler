@@ -39,3 +39,4 @@ class CustLogger:
 
 main_log: CustLogger = CustLogger('main')
 http_log: CustLogger = CustLogger('http')
+fg_log: CustLogger = CustLogger('ffmpeg')

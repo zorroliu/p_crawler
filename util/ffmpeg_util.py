@@ -4,9 +4,7 @@ import os
 from io import open
 import shutil
 import subprocess
-from base.logger import CustLogger, LogLevel
-
-fg_log = CustLogger('ffmpeg')
+from base.logger import fg_log, LogLevel
 
 FFMPEG_CMD = 'ffmpeg'
 
@@ -77,7 +75,7 @@ def extract_audio(input_file, output_audio):
 # 合并视频和音频
 def merge_audio_video(video_file, audio_file, output_file):
     merge_command = [
-        FFMPEG_CMD, '-i', video_file, '-i', audio_file,
+        FFMPEG_CMD, '-i', video_file, '-i', audio_file, '-y',
         '-c:v', 'copy', '-c:a', 'aac', output_file
     ]
 

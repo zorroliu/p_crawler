@@ -4,6 +4,7 @@ import os
 import unittest
 from util.ffmpeg_util import capture_video, merge_video_list, to_ts
 from util.ffprobe_util import get_video_wh
+from util.ffmpeg_util import extract_audio, extract_video, merge_audio_video
 
 
 class FfmpegTestCase(unittest.TestCase):
@@ -34,6 +35,13 @@ class FfmpegTestCase(unittest.TestCase):
             if wh[0] == '1080' and wh[1] == '1920':
                 continue
             os.remove(file_path)
+
+        self.assertEqual(True, True)
+
+    def test_to_ts(self):
+        extract_audio('D:\\data\\1251251421-1-30280.ms4', 'D:\\data\\1251251421-1-30280.mp3')
+        extract_video('D:\\data\\1251251421-1-100110.ms4', 'D:\\data\\1251251421-1-100110.mp4')
+        merge_audio_video('D:\\data\\1251251421-1-100110.mp4', 'D:\\data\\1251251421-1-30280.mp3', 'D:\\data\\1.mp4')
 
         self.assertEqual(True, True)
 
